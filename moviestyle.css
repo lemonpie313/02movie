@@ -1,0 +1,62 @@
+.all {
+    display: flex;
+    flex-direction: row;
+}
+
+.leftbody {
+    background-color: beige;
+    width: 500px;
+}
+
+
+
+.cardrow {
+    margin: 8px auto 8px auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    width: 480px;
+    margin: auto 4px auto 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-radius: 1%;
+    border: 0.5mm solid rgba(0, 0, 0, 0.150);
+
+}
+
+.imagesection {
+
+    width: 200px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.cardimage {
+    width: 200px;
+}
+
+.textsection {
+
+    width: 250px;
+    height: 300px;
+}
+
+.cardtitle {
+
+    width: 250px;
+    font-size: 20pt;
+    margin: 10px auto auto 5px;
+}
+
+.cardtext {
+
+    width: 250px;
+    margin: 10px auto auto 5px;
+}
