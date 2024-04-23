@@ -1,36 +1,71 @@
 .all {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .leftbody {
     background-color: beige;
-    width: 500px;
+    width: 480px;
+    position: sticky;
+    top: 0px;
+}
+
+.titlegroup {
+    margin: 30px auto auto auto;
+}
+
+.title {
+    text-align: center;
+}
+
+.inputgroup {
+    margin-top: 20px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0px;
+}
+
+.input {
+    width: 360px;
+    height: 40px;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.searchbtn {
+    width: 70px;
+    height: 45px;
+    font-size: 15pt;
 }
 
 
 
 .cardrow {
-    margin: 8px auto 8px auto;
+    margin: 15px auto 15px auto;
     display: flex;
     flex-direction: row;
 }
 
 .card {
-    width: 480px;
-    margin: auto 4px auto 4px;
+    width: 450px;
+    height: 250px;
+    margin: auto 7px auto 7px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: left;
     border-radius: 1%;
     border: 0.5mm solid rgba(0, 0, 0, 0.150);
 
 }
 
 .imagesection {
-
-    width: 200px;
-    height: 300px;
+    margin: auto auto auto 6px;
+    width: 165px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,11 +74,11 @@
 }
 
 .cardimage {
-    width: 200px;
+    width: 165px;
 }
 
 .textsection {
-
+    margin: auto auto auto 0px;
     width: 250px;
     height: 300px;
 }
@@ -51,12 +86,13 @@
 .cardtitle {
 
     width: 250px;
-    font-size: 20pt;
+    font-size: 15pt;
     margin: 10px auto auto 5px;
 }
 
 .cardtext {
-
+    font-size: 11pt;
     width: 250px;
-    margin: 10px auto auto 5px;
+    position: relative;
+    margin: 50px auto auto 5px;
 }
