@@ -1,18 +1,17 @@
 .all {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+
 }
 
-.leftbody {
+.topbody {
     background-color: beige;
-    width: 480px;
+    height: 150px;
     position: sticky;
     top: 0px;
-}
-
-.titlegroup {
-    margin: 30px auto auto auto;
+    position: sticky;
+    top: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 1;
 }
 
 .title {
@@ -26,8 +25,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    position: sticky;
-    top: 0px;
 }
 
 .input {
@@ -43,10 +40,17 @@
     font-size: 15pt;
 }
 
+.mainbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 0;
+}
+
 
 
 .cardrow {
-    margin: 15px auto 15px auto;
+    margin: 15px auto  0px auto;
     display: flex;
     flex-direction: row;
 }
