@@ -1,6 +1,4 @@
-.all {
-
-}
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 
 .topbody {
     background-color: beige;
@@ -15,11 +13,16 @@
 }
 
 .title {
+    margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 40px;
 }
 
 .inputgroup {
-    margin-top: 20px;
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -28,7 +31,7 @@
 }
 
 .input {
-    width: 360px;
+    width: 400px;
     height: 40px;
     font-size: 20px;
     margin-right: 5px;
@@ -37,28 +40,34 @@
 .searchbtn {
     width: 70px;
     height: 45px;
-    font-size: 15pt;
+    font-size: 20pt;
+    background-color: aliceblue;
+    border-color: aliceblue;
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .mainbody {
+    margin-top: 10px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
     z-index: 0;
 }
 
 
 
 .cardrow {
-    margin: 15px auto  0px auto;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .card {
-    width: 450px;
-    height: 250px;
-    margin: auto 7px auto 7px;
+    width: 550px;
+    height: 300px;
+    margin: 7px 7px 7px 7px;
     display: flex;
     flex-direction: row;
     justify-content: left;
@@ -68,8 +77,8 @@
 }
 
 .imagesection {
-    margin: auto auto auto 6px;
-    width: 165px;
+    width: 205px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,25 +87,24 @@
 }
 
 .cardimage {
-    width: 165px;
+    margin: auto auto auto auto;
+    height: 290px;
 }
 
 .textsection {
-    margin: auto auto auto 0px;
-    width: 250px;
+    width: 330px;
     height: 300px;
+    margin-left: 5px;
+    margin-right: 10px;
 }
 
 .cardtitle {
-
-    width: 250px;
+    height: 40px;
     font-size: 15pt;
-    margin: 10px auto auto 5px;
+    margin-top: 10pt;
 }
 
 .cardtext {
     font-size: 11pt;
-    width: 250px;
-    position: relative;
-    margin: 50px auto auto 5px;
+    margin-top: 10px;
 }
