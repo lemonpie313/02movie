@@ -1,8 +1,8 @@
 const options = {
     method: 'GET',
     headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGFhZWZmNTk2ZTdhZTEzODMxZGRlOTRhYWE0YTgxYiIsInN1YiI6IjY2MjYzNTlmNjNkOTM3MDE0YTcxOWRmNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lWKw5grKuXOHrKv9iGfhk2x7VNULIlT17SauDeWb6VY'
+        accept: '',
+        Authorization: "'
     }
 };
 
@@ -40,7 +40,7 @@ let printtitle = function () {
 
 
 
-fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+fetch('', options)
     .then(response => response.json())
     .then(printtitle())
     .catch(err => console.error(err));
