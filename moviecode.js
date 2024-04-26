@@ -1,26 +1,22 @@
 const options = {
     method: 'GET',
     headers: {
-        accept: '',
-        Authorization: "'
+        accept: 'application/json',
+        Authorization: ''
     }
 };
 
-let movieCollection = [];
-let searchedMovie = {};
+let movie;
+let searchedMovie;
 
 let printtitle = function () {
     return (data) => {
-        let movie = data['results'];
-        let movieTitle;
-        let movieOverview;
-        let movieImage;
-        let movieIndex;
+        movie = data['results'];
         movie.forEach((a) => {
-            movieIndex = movie.indexOf(a)
-            movieTitle = a['title'];
-            movieOverview = a['overview'];
-            movieImage = a['poster_path'];
+            let movieIndex = movie.indexOf(a)
+            let movieTitle = a['title'];
+            let movieOverview = a['overview'];
+            let movieImage = a['poster_path'];
             let movieCardHTML = `
             <div class="card">
                <div class="imagesection">
@@ -33,46 +29,55 @@ let printtitle = function () {
                 </div>
             </div>`
             document.querySelector("#cardrow" + movieIndex % 3).innerHTML += movieCardHTML;
-            movieCollection.push(movieTitle);
         })
     }
+    
 }
 
 
 
-fetch('', options)
+fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
     .then(response => response.json())
     .then(printtitle())
     .catch(err => console.error(err));
 
 
 let clickbtn = function () {
-    searchedMovie = {};
-    //let n = 0;
+    searchedMovie = [];
     let a = document.querySelector("#input").value.toLowerCase();
     console.log("입력값 : " + a);
-    movieCollection.forEach(function (title) {
+    movie.forEach(function (i) {
+        let title = i["title"];
         if (title.toLowerCase().includes(a)) {
-            console.log(title + "검색 완료");
-            //searchedMovie[n]["movieTitle"] = title;
-            //searchedMovie[n]["movieOverview"] = querySelector("#"+n).text;
-            //n+=1;
-        } else {
-            console.log(`${a}와 ${title}는 일치하지 않음`);
+            searchedMovie.push(i);
         }
     })
     document.querySelectorAll(".cardrow").forEach( function (i) {
         i.innerHTML = ``;
     })
-    //console.log(searchedMovie);
-
-
-
+    searchedMovie.forEach( function(a) {
+        let movieIndex = searchedMovie.indexOf(a)
+            let movieTitle = a['title'];
+            let movieOverview = a['overview'];
+            let movieImage = a['poster_path'];
+            let movieCardHTML = `
+            <div class="card">
+               <div class="imagesection">
+                    <img class="cardimage" id="carimage" 
+                        src="https://image.tmdb.org/t/p/original${movieImage}" alt="...">
+                </div>
+                <div class="textsection">
+                    <h5 class="cardtitle" id="${movieIndex}">${movieTitle}</h5>
+                    <p class="cardtext">${movieOverview}'</p>
+                </div>
+            </div>`
+            document.querySelector("#cardrow" + movieIndex % 3).innerHTML += movieCardHTML;
+        })    
 }
 
-window.onload = function () { //페이지 로드시 자동으로 수행되는 전용 콜백함수
+window.onload = function () {
     let btn = document.querySelector("#searchbtn");
-    btn.addEventListener("click", clickbtn); //html 로드가 다 되기도 전에 js에서 html 영역을 참조하려 해서 에러나기 때문에, window.onload에 할당해줘야함
+    btn.addEventListener("click", clickbtn);
 }
 
 
