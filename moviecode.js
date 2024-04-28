@@ -10,20 +10,19 @@ const options = {
 let movie;
 let searchedMovie;
 let movieCard;
+let alldata;
 
 //첫 로드
 let printtitle = function (data) {
     return new Promise((resolve) => {
+        alldata = data;
         movie = data['results'];
         searchedMovie = movie;
-        console.log("로드된영화들");
-        console.log(searchedMovie);
         movie.forEach((a) => {
             let movieIndex = movie.indexOf(a)
             let movieTitle = a['title'];
             let movieOverview = a['overview'];
             let movieImage = a['poster_path'];
-            let movieID = a['id'];
             let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
                 <input type="button" class="cardbtn" id="button${movieIndex}">
@@ -34,7 +33,7 @@ let printtitle = function (data) {
                     </div>
                     <div class="textsection">
                         <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
-                        <p class="cardtext">${movieOverview} ${movieID}</p>
+                        <p class="cardtext">${movieOverview}</p>
                     </div>
                 </label>
             </div>`;
@@ -48,7 +47,6 @@ let printtitle = function (data) {
 //카드 클릭시 실행할 함수
 let cardAlert = (a) => {
     let number = a.target.id.slice(6);
-    console.log("number : " + number);
     let idOfMovie = searchedMovie[number]['id'];
     alert("id : " + idOfMovie);
 }
@@ -56,7 +54,7 @@ let cardAlert = (a) => {
 //카드 클릭 함수
 let clickCard = (movieCards) => {
     movieCards.forEach((a) => {
-        a.addEventListener("click", (a) => { 
+        a.addEventListener("click", (a) => {
             cardAlert(a);
             //printsearched();
         });
@@ -65,25 +63,25 @@ let clickCard = (movieCards) => {
 
 //검색버튼 클릭시 실행할 함수
 let clickBtn = () => {
-    searchedMovie = [];
     const a = document.querySelector("#input").value.toLowerCase();
-    movie.forEach((i) => {
-        let title = i["title"];
-        if (title.toLowerCase().includes(a)) {
-            searchedMovie.push(i);
-        }
+    if (!a) {
+        alert("검색어를 입력하세요");
+    }
+    searchedMovie = movie.filter((i) => {
+        return i["title"].toLowerCase().includes(a.toLowerCase())
     })
-    console.log("검색된영화");
-    console.log(searchedMovie);
     document.querySelectorAll(".cardrow").forEach(function (i) {
         i.innerHTML = ``;
     })
+    if (searchedMovie.length == 0) {
+        alert("일치하는 결과가 없습니다");
+        printtitle(alldata);
+    }
     searchedMovie.forEach((a) => {
         let movieIndex = searchedMovie.indexOf(a)
         let movieTitle = a['title'];
         let movieOverview = a['overview'];
         let movieImage = a['poster_path'];
-        let movieID = a['id'];
         let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
                 <input type="button" class="cardbtn" id="button${movieIndex}">
@@ -94,7 +92,7 @@ let clickBtn = () => {
                     </div>
                     <div class="textsection">
                         <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
-                        <p class="cardtext">${movieOverview} ${movieID}</p>
+                        <p class="cardtext">${movieOverview}</p>
                     </div>
                 </label>
             </div>`;
@@ -104,31 +102,39 @@ let clickBtn = () => {
 }
 
 
-//검색버튼 클릭 함수
-let printsearched = function () {
-    return new Promise((resolve) => {
-        const btn = document.querySelector("#searchbtn");
-        btn.addEventListener("click", () => {
-            clickBtn();
-            resolve(movieCard);
+//돌아가기 버튼 클릭 함수
+let clickBack = () => {
+    let resetbtn = document.querySelector("#resetbtn");
+    resetbtn.addEventListener("click", () => {
+        document.querySelectorAll(".cardrow").forEach(function (i) {
+            i.innerHTML = ``;
         });
-        document.querySelector('#input').addEventListener("keydown", (e) => {
-            if (e.code == 'Enter') {
-                btn.click();
-            }
-        })
+        printtitle(alldata);
+        clickCard(movieCard);
     })
 }
 
+
+//검색버튼 클릭 함수
+let printsearched = function () {
+    const btn = document.querySelector("#searchbtn");
+    btn.addEventListener("click", () => {
+        clickBtn();
+        clickCard(movieCard);
+        clickBack();
+    });
+    document.querySelector('#input').addEventListener("keydown", (e) => {
+        if (e.code == 'Enter') {
+            btn.click();
+        }
+    })
+}
 
 
 
 fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
     .then(response => response.json())
     .then(data => printtitle(data))
-    //.then((a) => clickCard(a))
-    //.then((data) => printsearched(data))
-    .then((a) => clickCard(a));
-//.then(data => printsearched(data));
-//.catch(err => console.error(err));
+    .then((a) => clickCard(a))
+    .then((data) => printsearched(data));
 
