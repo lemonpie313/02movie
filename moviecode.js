@@ -3,16 +3,21 @@ const options = {
     headers: {
         accept: 'application/json',
         Authorization: 'application/json',
-        Authorization: ''
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGFhZWZmNTk2ZTdhZTEzODMxZGRlOTRhYWE0YTgxYiIsInN1YiI6IjY2MjYzNTlmNjNkOTM3MDE0YTcxOWRmNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lWKw5grKuXOHrKv9iGfhk2x7VNULIlT17SauDeWb6VY'
     }
 };
 
+let movie;
+let searchedMovie;
 let movieCard;
 
 //첫 로드
 let printtitle = function (data) {
     return new Promise((resolve) => {
         movie = data['results'];
+        searchedMovie = movie;
+        console.log("로드된영화들");
+        console.log(searchedMovie);
         movie.forEach((a) => {
             let movieIndex = movie.indexOf(a)
             let movieTitle = a['title'];
@@ -43,14 +48,18 @@ let printtitle = function (data) {
 //카드 클릭시 실행할 함수
 let cardAlert = (a) => {
     let number = a.target.id.slice(6);
-    let idOfMovie = movie[number]['id'];
+    console.log("number : " + number);
+    let idOfMovie = searchedMovie[number]['id'];
     alert("id : " + idOfMovie);
 }
 
 //카드 클릭 함수
 let clickCard = (movieCards) => {
     movieCards.forEach((a) => {
-        a.addEventListener("click", (a) => { cardAlert(a) });
+        a.addEventListener("click", (a) => { 
+            cardAlert(a);
+            //printsearched();
+        });
     })
 }
 
@@ -64,6 +73,8 @@ let clickBtn = () => {
             searchedMovie.push(i);
         }
     })
+    console.log("검색된영화");
+    console.log(searchedMovie);
     document.querySelectorAll(".cardrow").forEach(function (i) {
         i.innerHTML = ``;
     })
@@ -94,12 +105,11 @@ let clickBtn = () => {
 
 
 //검색버튼 클릭 함수
-let printsearched = function (data) {
+let printsearched = function () {
     return new Promise((resolve) => {
         const btn = document.querySelector("#searchbtn");
         btn.addEventListener("click", () => {
             clickBtn();
-            console.log(movieCard);
             resolve(movieCard);
         });
         document.querySelector('#input').addEventListener("keydown", (e) => {
@@ -112,11 +122,12 @@ let printsearched = function (data) {
 
 
 
+
 fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
     .then(response => response.json())
     .then(data => printtitle(data))
-    .then((a) => clickCard(a))
-    .then((data) => printsearched(data))
+    //.then((a) => clickCard(a))
+    //.then((data) => printsearched(data))
     .then((a) => clickCard(a));
 //.then(data => printsearched(data));
 //.catch(err => console.error(err));
