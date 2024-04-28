@@ -56,7 +56,7 @@ let cardAlert = (a) => {
 //카드 클릭 함수
 let clickCard = (movieCards) => {
     movieCards.forEach((a) => {
-        a.addEventListener("click", (a) => { 
+        a.addEventListener("click", (a) => {
             cardAlert(a);
             //printsearched();
         });
@@ -106,29 +106,23 @@ let clickBtn = () => {
 
 //검색버튼 클릭 함수
 let printsearched = function () {
-    return new Promise((resolve) => {
-        const btn = document.querySelector("#searchbtn");
-        btn.addEventListener("click", () => {
-            clickBtn();
-            resolve(movieCard);
-        });
-        document.querySelector('#input').addEventListener("keydown", (e) => {
-            if (e.code == 'Enter') {
-                btn.click();
-            }
-        })
+    const btn = document.querySelector("#searchbtn");
+    btn.addEventListener("click", () => {
+        clickBtn();
+        clickCard(movieCard);
+    });
+    document.querySelector('#input').addEventListener("keydown", (e) => {
+        if (e.code == 'Enter') {
+            btn.click();
+        }
     })
 }
-
 
 
 
 fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
     .then(response => response.json())
     .then(data => printtitle(data))
-    //.then((a) => clickCard(a))
-    //.then((data) => printsearched(data))
-    .then((a) => clickCard(a));
-//.then(data => printsearched(data));
-//.catch(err => console.error(err));
+    .then((a) => clickCard(a))
+    .then((data) => printsearched(data));
 
