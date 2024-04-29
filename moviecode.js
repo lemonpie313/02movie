@@ -23,6 +23,7 @@ let printtitle = function (data) {
             let movieTitle = a['title'];
             let movieOverview = a['overview'];
             let movieImage = a['poster_path'];
+            let movieRating = a['vote_average'];
             let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
                 <input type="button" class="cardbtn" id="button${movieIndex}" style="display: none;">
@@ -33,6 +34,7 @@ let printtitle = function (data) {
                     </div>
                     <div class="textsection">
                         <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
+                        <p class="rating">rating : ${movieRating}</p>
                         <p class="cardtext">${movieOverview}</p>
                     </div>
                 </label>
@@ -82,6 +84,7 @@ let clickBtn = () => {
         let movieTitle = a['title'];
         let movieOverview = a['overview'];
         let movieImage = a['poster_path'];
+        let movieRating = a['vote_average'];
         let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
                 <input type="button" class="cardbtn" id="button${movieIndex}" style="display:none;">
@@ -92,6 +95,7 @@ let clickBtn = () => {
                     </div>
                     <div class="textsection">
                         <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
+                        <p class="rating">rating : ${movieRating}</p>
                         <p class="cardtext">${movieOverview}</p>
                     </div>
                 </label>
