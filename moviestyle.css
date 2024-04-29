@@ -115,7 +115,12 @@
     margin-top: 10pt;
 }
 
+.rating {
+    font-size : 11pt;
+    margin-top : -20px;
+}
+
 .cardtext {
     font-size: 11pt;
-    margin-top: 10px;
+    margin-top: 20px;
 }
