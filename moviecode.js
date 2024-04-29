@@ -75,10 +75,6 @@ let clickBtn = () => {
     document.querySelectorAll(".cardrow").forEach(function (i) {
         i.innerHTML = ``;
     })
-    if (searchedMovie.length == 0) {
-        alert("일치하는 결과가 없습니다");
-        printtitle(alldata);
-    }
     searchedMovie.forEach((a) => {
         let movieIndex = searchedMovie.indexOf(a)
         let movieTitle = a['title'];
