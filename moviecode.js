@@ -25,7 +25,7 @@ let printtitle = function (data) {
             let movieImage = a['poster_path'];
             let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
-                <input type="button" class="cardbtn" id="button${movieIndex}">
+                <input type="button" class="cardbtn" id="button${movieIndex}" style="display: none;">
                 <label for="button${movieIndex}" class="card" id="card${movieIndex}">
                    <div class="imagesection">
                         <img class="cardimage" id="carimage" 
@@ -84,7 +84,7 @@ let clickBtn = () => {
         let movieImage = a['poster_path'];
         let movieCardHTML = `
             <div class="cardsection" id=cardsection${movieIndex}>
-                <input type="button" class="cardbtn" id="button${movieIndex}">
+                <input type="button" class="cardbtn" id="button${movieIndex}" style="display:none;">
                 <label for="button${movieIndex}" class="card" id="card${movieIndex}">
                     <div class="imagesection">
                         <img class="cardimage" id="carimage" 
