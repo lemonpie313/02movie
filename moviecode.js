@@ -10,41 +10,43 @@ const options = {
 let movie;
 let searchedMovie;
 let movieCard;
-let alldata;
+let allData;
 
-//첫 로드
-let printtitle = function (data) {
-    return new Promise((resolve) => {
-        alldata = data;
-        movie = data['results'];
-        searchedMovie = movie;
-        movie.forEach((a) => {
-            let movieIndex = movie.indexOf(a)
-            let movieTitle = a['title'];
-            let movieOverview = a['overview'];
-            let movieImage = a['poster_path'];
-            let movieRating = a['vote_average'];
-            let movieCardHTML = `
-            <div class="cardsection" id=cardsection${movieIndex}>
-                <input type="button" class="cardbtn" id="button${movieIndex}" style="display: none;">
-                <label for="button${movieIndex}" class="card" id="card${movieIndex}">
-                   <div class="imagesection">
-                        <img class="cardimage" id="carimage" 
-                            src="https://image.tmdb.org/t/p/original${movieImage}" alt="...">
-                    </div>
-                    <div class="textsection">
-                        <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
-                        <p class="rating">rating : ${movieRating}</p>
-                        <p class="cardtext">${movieOverview}</p>
-                    </div>
-                </label>
-            </div>`;
-            document.querySelector("#cardrow" + movieIndex % 3).insertAdjacentHTML("beforeend", movieCardHTML);
-        })
-        movieCard = document.querySelectorAll(".cardbtn");
-        resolve(movieCard);
+let printMovieCards = (movie) => {
+    movie.forEach((a) => {
+        let movieIndex = movie.indexOf(a)
+        let movieTitle = a['title'];
+        let movieOverview = a['overview'];
+        let movieImage = a['poster_path'];
+        let movieRating = a['vote_average'];
+        let movieCardHTML = `
+        <div class="cardsection" id=cardsection${movieIndex}>
+            <input type="button" class="cardbtn" id="button${movieIndex}" style="display: none;">
+            <label for="button${movieIndex}" class="card" id="card${movieIndex}">
+               <div class="imagesection">
+                    <img class="cardimage" id="carimage" 
+                        src="https://image.tmdb.org/t/p/original${movieImage}" alt="...">
+                </div>
+                <div class="textsection">
+                    <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
+                    <p class="rating">rating : ${movieRating}</p>
+                    <p class="cardtext">${movieOverview}</p>
+                </div>
+            </label>
+        </div>`;
+        document.querySelector("#cardrow" + movieIndex % 3).insertAdjacentHTML("beforeend", movieCardHTML);
     })
 }
+
+//첫 로드
+let printTitle = function (data) {
+    allData = data;
+    movie = data['results'];
+    searchedMovie = movie;
+    printMovieCards(movie);
+    movieCard = document.querySelectorAll(".cardbtn");
+}
+
 
 //카드 클릭시 실행할 함수
 let cardAlert = (a) => {
@@ -58,9 +60,8 @@ let clickCard = (movieCards) => {
     movieCards.forEach((a) => {
         a.addEventListener("click", (a) => {
             cardAlert(a);
-            //printsearched();
         });
-    })
+    });
 }
 
 //검색버튼 클릭시 실행할 함수
@@ -75,29 +76,7 @@ let clickBtn = () => {
     document.querySelectorAll(".cardrow").forEach(function (i) {
         i.innerHTML = ``;
     })
-    searchedMovie.forEach((a) => {
-        let movieIndex = searchedMovie.indexOf(a)
-        let movieTitle = a['title'];
-        let movieOverview = a['overview'];
-        let movieImage = a['poster_path'];
-        let movieRating = a['vote_average'];
-        let movieCardHTML = `
-            <div class="cardsection" id=cardsection${movieIndex}>
-                <input type="button" class="cardbtn" id="button${movieIndex}" style="display:none;">
-                <label for="button${movieIndex}" class="card" id="card${movieIndex}">
-                    <div class="imagesection">
-                        <img class="cardimage" id="carimage" 
-                            src="https://image.tmdb.org/t/p/original${movieImage}" alt="...">
-                    </div>
-                    <div class="textsection">
-                        <h5 class="cardtitle" id="title${movieIndex}">${movieTitle}</h5>
-                        <p class="rating">rating : ${movieRating}</p>
-                        <p class="cardtext">${movieOverview}</p>
-                    </div>
-                </label>
-            </div>`;
-        document.querySelector("#cardrow" + movieIndex % 3).innerHTML += movieCardHTML;
-    })
+    printMovieCards(searchedMovie);
     movieCard = document.querySelectorAll(".cardbtn");
 }
 
@@ -109,14 +88,14 @@ let clickBack = () => {
         document.querySelectorAll(".cardrow").forEach(function (i) {
             i.innerHTML = ``;
         });
-        printtitle(alldata);
+        printTitle(allData);
         clickCard(movieCard);
     })
 }
 
 
 //검색버튼 클릭 함수
-let printsearched = function () {
+let printSearched = function () {
     const btn = document.querySelector("#searchbtn");
     btn.addEventListener("click", () => {
         clickBtn();
@@ -134,7 +113,8 @@ let printsearched = function () {
 
 fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
     .then(response => response.json())
-    .then(data => printtitle(data))
-    .then((a) => clickCard(a))
-    .then((data) => printsearched(data));
-
+    .then(data => {
+        printTitle(data);
+        clickCard(movieCard);
+        printSearched(data);
+    })
