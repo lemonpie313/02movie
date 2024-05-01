@@ -12,7 +12,6 @@ let searchedMovie;
 let movieCard;
 let allData;
 
-//카드 로드 함수
 let printMovieCards = (movie) => {
     movie.forEach((a) => {
         let movieIndex = movie.indexOf(a)
